@@ -34,11 +34,10 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
         <p class="stock out-of-stock"><?php echo esc_html(apply_filters('woocommerce_out_of_stock_message', __('This product is currently out of stock and unavailable.', 'woocommerce'))); ?></p>
     <?php else : ?>
         <?php
-
-        $availableVariationsTrimmed = array();
-        foreach ($available_variations as $availableVariation) {
-            array_push($availableVariationsTrimmed, $availableVariation['attributes']);
-        }
+            $availableVariationsTrimmed = array();
+            foreach ($available_variations as $availableVariation) {
+                array_push($availableVariationsTrimmed, $availableVariation['attributes']);
+            }
         ?>
         <table class="variations" cellspacing="0">
             <tbody>
