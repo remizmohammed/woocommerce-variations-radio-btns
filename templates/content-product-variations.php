@@ -57,24 +57,39 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                                             'fields' => 'all',
                                         )
                                     );
+                                    ?>
+                                    <div class="wc-vrb-radio-container">
+                                    <?php
                                     foreach ($terms as $term) {
                                         if (in_array($term->slug, $options, true)) {
                                             foreach ($availableVariationsTrimmed as $key => $availableVariation) {
                                                 if (in_array($term->slug, $availableVariation)) {
-                                                    echo $availableVariations[$key]["variation_description"];
+                                                    $variationPriceHtml =  $availableVariations[$key]["price_html"];
+                                                    $variationDescriptionHtml =  $availableVariations[$key]["variation_description"];
+                                                    $variationLabelHtml =  $availableVariations[$key]["wc_vrb_variation_label"];
                                                 }
                                             }
                                             ?>
-                                            <label class="custom-radio">
-                                                <?php
-                                                echo esc_html(apply_filters('woocommerce_variation_option_name', $term->name, $term, $attribute_name, $product));
-                                                ?>
-                                                <input type="radio" name="<?php echo sanitize_title($attribute_name) ?>-cloned" data-attribute_name="<?php echo sanitize_title($attribute_name) ?>" value="<?php echo esc_attr($term->slug) ?>" <?php echo checked(sanitize_title($selectedDefaultValue), $term->slug, false) ?>" onchange="cloneVariableAttr(jQuery(this))">
-                                                <span class="checkmark"></span>
-                                            </label>
+                                            <div class="wc-vrb-custom-radio">
+                                                <input type="radio" class="wc-vrb-option-input" id="option-<?php echo $term->slug?>" name="<?php echo sanitize_title($attribute_name) ?>-cloned" data-attribute_name="<?php echo sanitize_title($attribute_name) ?>" value="<?php echo esc_attr($term->slug) ?>" <?php echo checked(sanitize_title($selectedDefaultValue), $term->slug, false) ?>" onchange="cloneVariableAttr(jQuery(this))">
+                                                <label for="option-<?php echo $term->slug?>" class="wc-vrb-option-label">
+                                                    <div class="details">
+                                                        <b>
+                                                            <?php  echo esc_html(apply_filters('woocommerce_variation_option_name', $term->name, $term, $attribute_name, $product));
+                                                        ?>
+                                                        </b>
+                                                        <?php echo $variationDescriptionHtml;?>
+                                                            <?php if($variationLabelHtml):?>
+                                                                <span class="recommended"><?php echo $variationLabelHtml?></span>
+                                                        <?php endif;?>
+                                                    </div>
+                                                    <?php echo $variationPriceHtml?>
+                                                </label>
+                                            </div>
                                         <?php
                                         }
-                                    }
+                                    } ?>
+                                   </div> <?php 
                                 } else {
                                     ?>
                                     <div class="wc-vrb-radio-container">
@@ -94,7 +109,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                                                     <input type="radio" class="wc-vrb-option-input" id="option-<?php echo $option?>" name="<?php echo sanitize_title($attribute_name) ?>-cloned" data-attribute_name="<?php echo sanitize_title($attribute_name) ?>" value="<?php echo esc_attr($option) ?>" <?php echo $selected; ?> onchange="cloneVariableAttr(jQuery(this))">
                                                     <label for="option-<?php echo $option?>" class="wc-vrb-option-label">
                                                         <div class="details">
-                                                            <h4><?php echo esc_html(apply_filters('woocommerce_variation_option_name', $option, null, $attribute_name, $product));?></h4>
+                                                            <b><?php echo esc_html(apply_filters('woocommerce_variation_option_name', $option, null, $attribute_name, $product));?></b>
                                                             <?php echo $variationDescriptionHtml;?>
                                                             <?php if($variationLabelHtml):?>
                                                                 <span class="recommended"><?php echo $variationLabelHtml?></span>
@@ -168,8 +183,7 @@ do_action('woocommerce_after_add_to_cart_form');
         var addToCartHtml = jQuery('.single_add_to_cart_button').text();
         var variablePriceHtml = jQuery('.woocommerce-variation-price').find('.woocommerce-Price-amount').html();
         if (variablePriceHtml) {
-            var priceHtml = variablePriceHtml + ' - ' + 'Add to cart';
-            //jQuery('.single_add_to_cart_button').html(priceHtml);
+            jQuery('p.price span.woocommerce-Price-amount').html(variablePriceHtml);
         }
     }
 </script>

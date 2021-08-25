@@ -77,20 +77,31 @@ span.variation-price-html {
   margin-bottom: 15px !important;
   display: block;
   border: 1px solid black;
-  padding: 20px 30px 20px 60px;
+  padding: 20px 14px 20px 60px;
   transition: .3s;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 102px;
 }
 
 .wc-vrb-option-label p{
-  font-size: 12px;
+  font-size: 14px;
+    text-transform: none;
+    color: #000;
+    font-weight: 500;
+}
+
+.wc-vrb-option-label b{
+  text-transform: none;
+  font-size: 14px;
 }
 
 .wc-vrb-option-label span.recommended{
   margin-top: 5px;
+  text-transform: none;
+  font-weight: bolder;
 }
 
 .wc-vrb-option-label .recommended{
@@ -140,8 +151,42 @@ border: 1px solid #000;
   border-color: #fff;
 }
 .wc-vrb-option-label .price {
-  font-size: 1.4em;
+  font-size: 1.4em !important;
   padding-left: 10%;
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  color: #000 !important;
 }
+
+.woocommerce-variation.single_variation{
+  display: none !important;
+}
+
+@media(max-width: 525px){
+
+  .wc-vrb-option-label .price {
+      padding-left: 20px;
+      font-size: 1em;
+  }
+  
+  .wc-vrb-option-label .recommended {
+      white-space: nowrap;
+  }
+  
+  
+  .wc-vrb-option-label {
+      padding: 20px 3px 20px 40px;
+      align-items: center;
+  }
+  
+  .wc-vrb-option-label p{
+      font-size: 10px;
+  }
+
+  .wc-vrb-option-label::before {
+      width: 20px;
+      height: 20px;
+      left: 8px;
+  }
+  }

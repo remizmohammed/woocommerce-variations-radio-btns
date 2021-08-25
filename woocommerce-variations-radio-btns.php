@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WooCommerce Variations Radio Btns
-Plugin URI: https://tutsplus.com/
+Plugin URI: https://github.com/remizmohammed/woocommerce-variations-radio-btns
 Description: WooCommerce Add-on to change the product variations dropdown to radio buttons.
 Version: 1.0
 Author: Remiz mohammed
-Author URI: https://rachelmccollin.com/
+Author URI: https://github.com/remizmohammed
 License: GPLv2 or later
 Text Domain: wc_vrb
 */

@@ -51,8 +51,7 @@ if (!class_exists('Wc_Variations_Radio_Buttons')) :
             wp_register_style('wc-vrb-variation-radio-btns', WC_VARIATIONS_RADIO_BUTTONS_URL.'assets/css/wc-vrb-styles.css');
             remove_action('woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30);
             add_action('woocommerce_variable_add_to_cart', array($this, 'woocommerce_variable_add_to_cart_wc_vrb'), 30);
-            remove_action('woocommerce_single_variation', 'woocommerce_single_variation', 10);
-
+            
             /* Modify Price html */
             add_filter('woocommerce_variable_price_html', array($this, 'wc_vrb_variation_price'), 10, 2);
             add_action( 'woocommerce_variation_options_pricing', array($this, 'wc_vrb_add_custom_field_to_variations'), 10, 3 );
@@ -83,6 +82,9 @@ if (!class_exists('Wc_Variations_Radio_Buttons')) :
 
         public function wc_vrb_variation_price($price, $product)
         {
+            if( !is_product() ) {
+                return $price;
+            }
             foreach ($product->get_available_variations() as $pav) {
                 $def = true;
                 foreach ($product->get_variation_default_attributes() as $defkey => $defval) {
